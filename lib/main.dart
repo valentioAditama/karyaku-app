@@ -8,8 +8,9 @@ void main() => runApp(MyApp());
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: landing_page(),
-    );
+    return MaterialApp(home: RegisterScreen(), routes: {
+      '/login': (context) => LoginScreen(),
+      '/register': (context) => RegisterScreen(),
+    });
   }
 }
