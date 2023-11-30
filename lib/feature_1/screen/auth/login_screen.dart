@@ -17,14 +17,14 @@ class LoginScreen extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.end,
             children: <Widget>[
-              Text("Welcome Back",
+              const Text("Welcome Back",
                   style: TextStyle(fontSize: 30, color: Colors.white)),
-              Text("Please login if you want to berkarya",
+              const Text("Please login if you want to berkarya",
                   style: TextStyle(
                     fontSize: 20,
                     color: Colors.white,
                   )),
-              Padding(
+              const Padding(
                 padding: EdgeInsets.symmetric(horizontal: 8, vertical: 8),
                 child: TextField(
                   decoration: InputDecoration(
@@ -39,7 +39,7 @@ class LoginScreen extends StatelessWidget {
                   style: TextStyle(color: Colors.white),
                 ),
               ),
-              Padding(
+              const Padding(
                 padding: EdgeInsets.symmetric(horizontal: 8, vertical: 8),
                 child: TextField(
                   obscureText: true,
@@ -60,7 +60,7 @@ class LoginScreen extends StatelessWidget {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
-                    Text(
+                    const Text(
                       "Show Password",
                       style: TextStyle(color: Colors.white),
                     ),
@@ -68,7 +68,7 @@ class LoginScreen extends StatelessWidget {
                       onTap: () {
                         Navigator.pushNamed(context, '/register');
                       },
-                      child: Text(
+                      child: const Text(
                         "Not Have Account?",
                         style: TextStyle(
                           color: Colors
@@ -81,12 +81,12 @@ class LoginScreen extends StatelessWidget {
                 ),
               ),
               Padding(
-                padding: EdgeInsets.symmetric(horizontal: 8, vertical: 8),
+                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
                 child: ElevatedButton(
                     onPressed: () {
                       Navigator.pushNamed(context, '/home');
                     },
-                    child: Text("Login")),
+                    child: const Text("Login")),
               ),
             ],
           ),

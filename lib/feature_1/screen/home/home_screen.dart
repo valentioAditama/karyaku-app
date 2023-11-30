@@ -24,7 +24,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 image: AssetImage("images/home.png"), fit: BoxFit.cover),
           ),
           padding: const EdgeInsets.all(16.0),
-          child: Column(
+          child: const Column(
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.end,
             children: <Widget>[
@@ -37,8 +37,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     color: Colors.white,
                   )),
               Padding(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 8, vertical: 10),
+                padding: EdgeInsets.symmetric(horizontal: 8, vertical: 10),
                 child: TextField(
                   decoration: InputDecoration(
                       enabledBorder: OutlineInputBorder(

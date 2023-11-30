@@ -17,14 +17,14 @@ class RegisterScreen extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.end,
             children: <Widget>[
-              Text("Register Account",
+              const Text("Register Account",
                   style: TextStyle(fontSize: 30, color: Colors.white)),
-              Text("Please Create a new account if u dont have account",
+              const  Text("Please Create a new account if u dont have account",
                   style: TextStyle(
                     fontSize: 20,
                     color: Colors.white,
                   )),
-              Padding(
+              const  Padding(
                 padding: EdgeInsets.symmetric(horizontal: 8, vertical: 8),
                 child: TextField(
                   decoration: InputDecoration(
@@ -39,7 +39,7 @@ class RegisterScreen extends StatelessWidget {
                   style: TextStyle(color: Colors.white),
                 ),
               ),
-              Padding(
+              const  Padding(
                 padding: EdgeInsets.symmetric(horizontal: 8, vertical: 8),
                 child: TextField(
                   decoration: InputDecoration(
@@ -54,7 +54,7 @@ class RegisterScreen extends StatelessWidget {
                   style: TextStyle(color: Colors.white),
                 ),
               ),
-              Padding(
+              const  Padding(
                 padding: EdgeInsets.symmetric(horizontal: 8, vertical: 8),
                 child: TextField(
                   obscureText: true,
@@ -70,7 +70,7 @@ class RegisterScreen extends StatelessWidget {
                   style: TextStyle(color: Colors.white),
                 ),
               ),
-              Padding(
+              const  Padding(
                 padding: EdgeInsets.symmetric(horizontal: 8, vertical: 8),
                 child: TextField(
                   obscureText: true,
@@ -91,7 +91,7 @@ class RegisterScreen extends StatelessWidget {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
-                    Text(
+                    const Text(
                       "Show Password",
                       style: TextStyle(color: Colors.white),
                     ),
@@ -99,7 +99,7 @@ class RegisterScreen extends StatelessWidget {
                       onTap: () {
                         Navigator.pushNamed(context, '/login');
                       },
-                      child: Text(
+                      child: const  Text(
                         "Have Account?",
                         style: TextStyle(
                           color: Colors
@@ -112,12 +112,12 @@ class RegisterScreen extends StatelessWidget {
                 ),
               ),
               Padding(
-                padding: EdgeInsets.symmetric(horizontal: 8, vertical: 8),
+                padding: const  EdgeInsets.symmetric(horizontal: 8, vertical: 8),
                 child: ElevatedButton(
                     onPressed: () {
                       Navigator.pushNamed(context, '/home');
                     },
-                    child: Text("Register")),
+                    child: const Text("Register")),
               ),
             ],
           ),
