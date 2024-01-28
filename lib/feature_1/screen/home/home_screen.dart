@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:karyaku_app/feature_1/screen/auth/login_screen.dart';
-import 'package:karyaku_app/feature_1/screen/auth/register_screen.dart';
-import 'package:karyaku_app/feature_1/screen/landing_page/landing_page_screen.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import '../../widgets/bottom_navigation.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -11,186 +9,175 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   int _currentIndex = 0;
+  final CollectionReference postsCollection =
+      FirebaseFirestore.instance.collection('posts');
+
+  Future<void> _deletePost(String postId) async {
+    try {
+      await postsCollection.doc(postId).delete();
+      print('Post deleted successfully');
+    } catch (e) {
+      print('Error deleting post: $e');
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SingleChildScrollView(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.end,
-          children: <Widget>[
-            Container(
-              width: double.infinity,
-              height: 200, // Set the height as needed
-              decoration: const BoxDecoration(
-                image: DecorationImage(
-                  image: AssetImage("images/home.png"),
-                  fit: BoxFit.cover,
-                ),
-              ),
-              padding: EdgeInsets.only(right: 16.0),
-              child: const Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.end,
-                children: <Widget>[
-                  Text(
-                    "Search Art for you get Inspiration",
-                    style: TextStyle(fontSize: 25, color: Colors.white),
+      body: StreamBuilder<QuerySnapshot>(
+        stream: postsCollection.snapshots(),
+        builder: (context, snapshot) {
+          if (snapshot.hasError) {
+            return Center(
+              child: Text('Error: ${snapshot.error}'),
+            );
+          }
+
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return Center(
+              child: CircularProgressIndicator(),
+            );
+          }
+
+          return Column(
+            crossAxisAlignment: CrossAxisAlignment.end,
+            children: <Widget>[
+              Container(
+                width: double.infinity,
+                height: 200,
+                decoration: BoxDecoration(
+                  image: DecorationImage(
+                    image: AssetImage("images/home.png"),
+                    fit: BoxFit.cover,
                   ),
-                  Text(
-                    "Inspiration for work, culture, and more from people all over the world.",
-                    style: TextStyle(
-                      fontSize: 10,
-                      color: Colors.white,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(10.0),
-              child: Card(
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(8),
                 ),
-                clipBehavior: Clip.antiAliasWithSaveLayer,
+                padding: EdgeInsets.only(right: 16.0),
                 child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.end,
                   children: <Widget>[
-                    Image.network(
-                      'https://images.unsplash.com/photo-1507297448044-a99b358cd06e?q=80&w=1936&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
-                      height: 160,
-                      width: double.infinity,
-                      fit: BoxFit.cover,
+                    Text(
+                      "Search Art for you get Inspiration",
+                      style: TextStyle(fontSize: 25, color: Colors.white),
                     ),
-                    Container(
-                      padding: const EdgeInsets.fromLTRB(15, 15, 15, 0),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: <Widget>[
-                          Text(
-                            "Force Majeure is a fashion label based in Montreal.",
-                            style: TextStyle(
-                              fontSize: 18,
-                              fontWeight: FontWeight.w100,
-                              color: Colors.grey[800],
-                            ),
-                          ),
-                          Container(height: 10),
-                          Text(
-                            "We aim to create quality timeless design pieces that will elevate your everyday lifestyle",
-                            style: TextStyle(
-                              fontSize: 13,
-                              color: Colors.grey[700],
-                            ),
-                          ),
-                          Row(
-                            children: <Widget>[
-                              const Spacer(),
-                              TextButton(
-                                style: TextButton.styleFrom(
-                                  foregroundColor: Colors.transparent,
-                                ),
-                                child: const Text(
-                                  "SHARE",
-                                  style: TextStyle(color: Colors.black),
-                                ),
-                                onPressed: () {},
-                              ),
-                              TextButton(
-                                style: TextButton.styleFrom(
-                                  foregroundColor: Colors.transparent,
-                                ),
-                                child: const Text(
-                                  "EXPLORE",
-                                  style: TextStyle(color: Colors.black),
-                                ),
-                                onPressed: () {
-                                  Navigator.pushNamed(context, '/detail');
-                                },
-                              ),
-                            ],
-                          ),
-                        ],
+                    Text(
+                      "Inspiration for work, culture, and more from people all over the world.",
+                      style: TextStyle(
+                        fontSize: 10,
+                        color: Colors.white,
                       ),
                     ),
-                    Container(height: 10),
                   ],
                 ),
               ),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(10.0),
-              child: Card(
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(8),
-                ),
-                clipBehavior: Clip.antiAliasWithSaveLayer,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    Image.network(
-                      'https://images.unsplash.com/photo-1682686581362-796145f0e123?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
-                      height: 160,
-                      width: double.infinity,
-                      fit: BoxFit.cover,
-                    ),
-                    Container(
-                      padding: const EdgeInsets.fromLTRB(15, 15, 15, 0),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: <Widget>[
-                          Text(
-                            "Force Majeure is a fashion label based in Montreal.",
-                            style: TextStyle(
-                              fontSize: 18,
-                              fontWeight: FontWeight.w100,
-                              color: Colors.grey[800],
+              Expanded(
+                child: ListView.builder(
+                  itemCount: snapshot.data!.docs.length,
+                  itemBuilder: (context, index) {
+                    var post = snapshot.data!.docs[index];
+                    return Padding(
+                      padding: const EdgeInsets.all(10.0),
+                      child: Card(
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(8),
+                        ),
+                        clipBehavior: Clip.antiAliasWithSaveLayer,
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: <Widget>[
+                            Image.network(
+                              "https://source.unsplash.com/random/street-photography", // Replace with your image field
+                              height: 160,
+                              width: double.infinity,
+                              fit: BoxFit.cover,
                             ),
-                          ),
-                          Container(height: 10),
-                          Text(
-                            "We aim to create quality timeless design pieces that will elevate your everyday lifestyle",
-                            style: TextStyle(
-                              fontSize: 13,
-                              color: Colors.grey[700],
+                            Container(
+                              padding: const EdgeInsets.fromLTRB(15, 15, 15, 0),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: <Widget>[
+                                  Text(
+                                    post[
+                                        'title'], // Replace with your title field
+                                    style: TextStyle(
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.w100,
+                                      color: Colors.grey[800],
+                                    ),
+                                  ),
+                                  Container(height: 10),
+                                  Text(
+                                    post[
+                                        'subTitle'], // Replace with your description field
+                                    style: TextStyle(
+                                      fontSize: 13,
+                                      color: Colors.black,
+                                    ),
+                                  ),
+                                  Row(
+                                    children: <Widget>[
+                                      const Spacer(),
+                                      TextButton(
+                                        style: TextButton.styleFrom(
+                                          foregroundColor: Colors.transparent,
+                                        ),
+                                        child: const Text(
+                                          "DELETE",
+                                          style: TextStyle(color: Colors.black),
+                                        ),
+                                        onPressed: () {
+                                          _deletePost(post.id);
+                                        },
+                                      ),
+                                      TextButton(
+                                        style: TextButton.styleFrom(
+                                          foregroundColor: Colors.transparent,
+                                        ),
+                                        child: const Text(
+                                          "EDIT",
+                                          style: TextStyle(color: Colors.black),
+                                        ),
+                                        onPressed: () {},
+                                      ),
+                                      TextButton(
+                                        style: TextButton.styleFrom(
+                                          foregroundColor: Colors.transparent,
+                                        ),
+                                        child: const Text(
+                                          "EXPLORE",
+                                          style: TextStyle(color: Colors.black),
+                                        ),
+                                        onPressed: () {
+                                          Navigator.pushNamed(
+                                              context, '/detail',
+                                              arguments: {
+                                                'postId': post.id,
+                                                // ... (mungkin Anda ingin menyertakan data lainnya)
+                                              });
+                                        },
+                                      ),
+                                    ],
+                                  ),
+                                ],
+                              ),
                             ),
-                          ),
-                          Row(
-                            children: <Widget>[
-                              const Spacer(),
-                              TextButton(
-                                style: TextButton.styleFrom(
-                                  foregroundColor: Colors.transparent,
-                                ),
-                                child: const Text(
-                                  "SHARE",
-                                  style: TextStyle(color: Colors.black),
-                                ),
-                                onPressed: () {},
-                              ),
-                              TextButton(
-                                style: TextButton.styleFrom(
-                                  foregroundColor: Colors.transparent,
-                                ),
-                                child: const Text(
-                                  "EXPLORE",
-                                  style: TextStyle(color: Colors.black),
-                                ),
-                                onPressed: () {},
-                              ),
-                            ],
-                          ),
-                        ],
+                            Container(height: 10),
+                          ],
+                        ),
                       ),
-                    ),
-                    Container(height: 10),
-                  ],
+                    );
+                  },
                 ),
               ),
-            ),
-          ],
-        ),
+            ],
+          );
+        },
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Navigator.pushNamed(context, '/add_content');
+        },
+        child: Icon(Icons.add),
       ),
       bottomNavigationBar: BottomNavigation(
         currentIndex: _currentIndex,

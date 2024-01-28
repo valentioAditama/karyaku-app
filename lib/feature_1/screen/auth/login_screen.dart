@@ -1,6 +1,30 @@
 import 'package:flutter/material.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class LoginScreen extends StatelessWidget {
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
+
+  Future<void> signInWithEmailAndPassword(BuildContext context) async {
+    try {
+      UserCredential userCredential =
+          await FirebaseAuth.instance.signInWithEmailAndPassword(
+        email: emailController.text,
+        password: passwordController.text,
+      );
+
+      // You can access the logged-in user using userCredential.user
+      print("User logged in: ${userCredential.user?.email}");
+
+      // Navigate to home screen after successful login
+      Navigator.pushNamed(context, '/home');
+    } catch (e) {
+      // Handle login errors
+      print("Error signing in: $e");
+      // You can display an error message or handle it as needed
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -18,15 +42,16 @@ class LoginScreen extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.end,
             children: <Widget>[
               const Text("Welcome Back",
-                  style: TextStyle(fontSize: 30, color: Colors.white)),
+                  style: TextStyle(fontSize: 25, color: Colors.white)),
               const Text("Please login if you want to berkarya",
                   style: TextStyle(
-                    fontSize: 20,
+                    fontSize: 15,
                     color: Colors.white,
                   )),
-              const Padding(
+              Padding(
                 padding: EdgeInsets.symmetric(horizontal: 8, vertical: 8),
                 child: TextField(
+                  controller: emailController,
                   decoration: InputDecoration(
                       enabledBorder: OutlineInputBorder(
                         borderSide: BorderSide(color: Colors.white),
@@ -39,9 +64,10 @@ class LoginScreen extends StatelessWidget {
                   style: TextStyle(color: Colors.white),
                 ),
               ),
-              const Padding(
+              Padding(
                 padding: EdgeInsets.symmetric(horizontal: 8, vertical: 8),
                 child: TextField(
+                  controller: passwordController,
                   obscureText: true,
                   decoration: InputDecoration(
                       enabledBorder: OutlineInputBorder(
@@ -56,12 +82,12 @@ class LoginScreen extends StatelessWidget {
                 ),
               ),
               Padding(
-                padding: EdgeInsets.symmetric(horizontal: 8, vertical: 8),
+                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
                     const Text(
-                      "Show Password",
+                      "",
                       style: TextStyle(color: Colors.white),
                     ),
                     GestureDetector(
@@ -83,10 +109,11 @@ class LoginScreen extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
                 child: ElevatedButton(
-                    onPressed: () {
-                      Navigator.pushNamed(context, '/home');
-                    },
-                    child: const Text("Login")),
+                  onPressed: () {
+                    signInWithEmailAndPassword(context);
+                  },
+                  child: const Text("Login"),
+                ),
               ),
             ],
           ),
