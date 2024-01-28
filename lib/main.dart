@@ -3,7 +3,7 @@ import './feature_1/screen/auth/login_screen.dart';
 import './feature_1/screen/auth/register_screen.dart';
 import './feature_1/screen/landing_page/landing_page_screen.dart';
 import './feature_1/screen/home/home_screen.dart';
-
+import './feature_1/screen/detail/detail_screen.dart';
 void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
@@ -14,6 +14,7 @@ class MyApp extends StatelessWidget {
       '/login': (context) => LoginScreen(),
       '/register': (context) => RegisterScreen(),
       '/home': (context) => HomeScreen(),
+      '/detail': (context) => DetailScreen(),
     });
   }
 }
