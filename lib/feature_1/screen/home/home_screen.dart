@@ -21,6 +21,12 @@ class _HomeScreenState extends State<HomeScreen> {
     }
   }
 
+  void _editPost(String postId) {
+    Navigator.pushNamed(context, '/edit_content', arguments: {
+      'postId': postId,
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -137,7 +143,9 @@ class _HomeScreenState extends State<HomeScreen> {
                                           "EDIT",
                                           style: TextStyle(color: Colors.black),
                                         ),
-                                        onPressed: () {},
+                                        onPressed: () {
+                                          _editPost(post.id);
+                                        },
                                       ),
                                       TextButton(
                                         style: TextButton.styleFrom(
@@ -150,10 +158,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                         onPressed: () {
                                           Navigator.pushNamed(
                                               context, '/detail',
-                                              arguments: {
-                                                'postId': post.id,
-                                                // ... (mungkin Anda ingin menyertakan data lainnya)
-                                              });
+                                              arguments: {'postId': post.id});
                                         },
                                       ),
                                     ],

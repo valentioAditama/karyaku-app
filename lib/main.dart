@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:karyaku_app/feature_1/screen/add_content/add_content_screen.dart';
+import 'package:karyaku_app/feature_1/screen/edit_content/edit_content.dart';
 import './feature_1/screen/auth/login_screen.dart';
 import './feature_1/screen/auth/register_screen.dart';
 import './feature_1/screen/landing_page/landing_page_screen.dart';
@@ -27,6 +28,7 @@ class MyApp extends StatelessWidget {
       '/home': (context) => HomeScreen(),
       '/detail': (context) => DetailScreen(),
       '/add_content': (context) => AddContentScreen(),
+      '/edit_content': (context) => EditContentScreen(),
     });
   }
 }
